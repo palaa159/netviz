@@ -1,0 +1,19 @@
+<html>
+	<head>
+
+	</head>
+	<body>
+		This is running in the Node server.
+		<div id="output">here is the outcome</div>
+
+	<script src="js/vendor/jquery.min.js"></script>
+	<script src="http://coder.local:9001/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io.connect('http://coder.local:9001'); // connect client to the server
+
+		socket.on('data', function(data) {
+			$('#output').html(data);
+		});
+	</script>
+	</body>
+</html>
