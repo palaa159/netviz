@@ -71,7 +71,8 @@ fs.watchFile(a, function(curr, prev) {
 	fs.readFile(corrFilePath, 'utf-8', function(err, data) {
 		if(err) throw err;
 		var routers = data.substring(data.indexOf('Key')+4, data.indexOf('Station MAC')-6);
-		console.log('routers: '.help + routers.split(','));
+		console.log('routers: '.help + routers);
+		console.log('length: '.help + routers.match(/\n/g).length);
 		io.sockets.emit('data', data);
 	});
 });
