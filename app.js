@@ -75,3 +75,5 @@ fs.watchFile(a, function(curr, prev) {
 	});
 });
 }
+
+airodump();
