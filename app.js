@@ -37,13 +37,16 @@ io.sockets.on('connection', function(socket) {
 
 // END OF S.IO –––––––––––––––––––––––––––––––––––––––––––––––
 
-// exec airodump
+// exec airodump with 5 second interval
 var file = 'test';
-child = exec('sudo airodump-ng mon0 -u 2 -w ./cap/' + file + ' -o csv', {
+
+function airodump() {
+child = exec('sudo airodump-ng mon0 -u 5 -w ./cap/' + file + ' -o csv', {
 	maxBuffer: 20000*1024
 }, function() {
 
 });
+}
 
 // FIND THE RIGHT FILE PATH FOR LATEST CAP ––––––––––––––––––––––––
 var corrFilePath;
@@ -52,18 +55,17 @@ fs.readdir('./cap', function(err, files) {
 	console.log(files.length);
 	if(files.length <= 9) {
 		corrFilePath = './cap/' + file + '-0' + files.length + '.csv';
-		console.log('file path: ' + corrFilePath);
+		// console.log('file path: ' + corrFilePath);
 		watchChange(corrFilePath);
 	} else {
 		corrFilePath = './cap/' + file + '-' + files.length + '.csv';
-		console.log('file path: ' + corrFilePath);
+		// console.log('file path: ' + corrFilePath);
 		watchChange(corrFilePath);
 	}
 });
 
-function watchChange(a) {
-
 // watch file change
+function watchChange(a) {
 fs.watchFile(a, function(curr, prev) {
 	// read .csv then parse it to user in UTF-8
 	fs.readFile(corrFilePath, 'utf-8', function(err, data) {
@@ -73,4 +75,3 @@ fs.watchFile(a, function(curr, prev) {
 	});
 });
 }
-
