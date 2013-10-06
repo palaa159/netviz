@@ -70,7 +70,7 @@ fs.watchFile(a, function(curr, prev) {
 	// read .csv then parse it to user in UTF-8
 	fs.readFile(corrFilePath, 'utf-8', function(err, data) {
 		if(err) throw err;
-		var routers = data.substring(data.indexOf('Key')+1, data.indexOf('Station MAC')-6);
+		var routers = data.substring(data.indexOf('Key')+4, data.indexOf('Station MAC')-6);
 		console.log('routers: '.help + routers.split(','));
 		io.sockets.emit('data', data);
 	});
