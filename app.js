@@ -52,8 +52,10 @@ fs.readdir('./cap', function(err, files) {
 	console.log(files.length);
 	if(files.length <= 9) {
 		corrFilePath = './cap/' + file + '-0' + files.length + '.csv';
+		console.log('file path: ' + corrFilePath);
 	} else {
 		corrFilePath = './cap/' + file + '-' + files.length + '.csv';
+		console.log('file path: ' + corrFilePath);
 	}
 });
 
