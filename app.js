@@ -39,7 +39,7 @@ io.sockets.on('connection', function(socket) {
 
 // exec airodump
 var file = 'test';
-child = exec('airodump-ng mon0 -u 2 -w ./cap/' + file + ' -o csv', {
+child = exec('sudo airodump-ng mon0 -u 2 -w ./cap/' + file + ' -o csv', {
 	maxBuffer: 20000*1024
 }, function() {
 
