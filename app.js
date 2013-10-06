@@ -49,8 +49,12 @@ child = exec('sudo airodump-ng mon0 -u 2 -w ./cap/' + file + ' -o csv', {
 var corrFilePath;
 fs.readdir('./cap', function(err, files) {
 	if(err) throw err;
-	console.log(files);
-	corrFilePath = './cap/' + file + '0';
+	console.log(files.length);
+	if(files.length <= 9) {
+		corrFilePath = './cap/' + file + '-0' + files.length + '.csv';
+	} else {
+		corrFilePath = './cap/' + file + '-' + files.length + '.csv';
+	}
 });
 
 // watch file change
