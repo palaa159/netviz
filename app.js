@@ -30,7 +30,7 @@ util.log('the server is running on port: ' + port);
 // END OF WEB SERVER –––––––––––––––––––––––––––––––––––––––––––––––
 
 // SOCKET.IO –––––––––––––––––––––––––––––––––––––––––––––––
-
+io.set('log level', 1);
 io.sockets.on('connection', function(socket) {
 	util.log('Ooooooh, someone just poked me :)');
 });
