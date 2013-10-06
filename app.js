@@ -70,7 +70,7 @@ fs.watchFile(a, function(curr, prev) {
 	// read .csv then parse it to user in UTF-8
 	fs.readFile(corrFilePath, 'utf-8', function(err, data) {
 		if(err) throw err;
-		console.log('split: '.help + data.substring(data.indexOf('BSSID')-1, data.indexOf('\n\nStation MAC')));
+		console.log('split: '.help + data.substring(data.indexOf('BSSID')-1, data.indexOf('Station MAC')-3));
 		io.sockets.emit('data', data);
 	});
 });
