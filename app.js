@@ -66,13 +66,11 @@ function watchChange(a) {
 // watch file change
 fs.watchFile(a, function(curr, prev) {
 	// read .csv then parse it to user in UTF-8
-	console.log('the current mtime is: ' + curr.mtime);
-	console.log('the previous mtime was: ' + prev.mtime);
-	// fs.readFile(corrFilePath, 'utf-8', function(err, data) {
-	// 	if(err) throw err;
-	// 	console.log(data);
-	// 	io.sockets.emit('data', data);
-	// });
+	fs.readFile(corrFilePath, 'utf-8', function(err, data) {
+		if(err) throw err;
+		console.log(data);
+		io.sockets.emit('data', data);
+	});
 });
 }
 
