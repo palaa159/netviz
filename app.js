@@ -53,14 +53,18 @@ fs.readdir('./cap', function(err, files) {
 	if(files.length <= 9) {
 		corrFilePath = './cap/' + file + '-0' + files.length + '.csv';
 		console.log('file path: ' + corrFilePath);
+		watchChange(corrFilePath);
 	} else {
 		corrFilePath = './cap/' + file + '-' + files.length + '.csv';
 		console.log('file path: ' + corrFilePath);
+		watchChange(corrFilePath);
 	}
 });
 
+function watchChange(a) {
+
 // watch file change
-fs.watchFile(corrFilePath, function(curr, prev) {
+fs.watchFile(a, function(curr, prev) {
 	// read .csv then parse it to user in UTF-8
 	console.log('the current mtime is: ' + curr.mtime);
 	console.log('the previous mtime was: ' + prev.mtime);
@@ -70,4 +74,5 @@ fs.watchFile(corrFilePath, function(curr, prev) {
 	// 	io.sockets.emit('data', data);
 	// });
 });
+}
 
