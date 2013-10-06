@@ -10,12 +10,12 @@ var connect = require('connect'),
 // SET COLOR THEMES –––––––––––––––––––––––––––––––––––––––––––––––
 
 colors.setTheme({
-  info: 'green',
-  data: 'grey',
-  help: 'cyan',
-  warn: 'yellow',
-  debug: 'blue',
-  error: 'red'
+	info: 'green',
+	data: 'grey',
+	help: 'cyan',
+	warn: 'yellow',
+	debug: 'blue',
+	error: 'red'
 });
 
 // END OF COLOR THEMES –––––––––––––––––––––––––––––––––––––––––––––––
@@ -41,19 +41,19 @@ io.sockets.on('connection', function(socket) {
 var file = 'test';
 
 function airodump() {
-child = exec('sudo airodump-ng mon0 -u 5 -w ./cap/' + file + ' -o csv', {
-	maxBuffer: 20000*1024
-}, function() {
+	child = exec('sudo airodump-ng mon0 -u 5 -w ./cap/' + file + ' -o csv', {
+		maxBuffer: 20000 * 1024
+	}, function() {
 
-});
+	});
 }
 
 // FIND THE RIGHT FILE PATH FOR LATEST CAP ––––––––––––––––––––––––
 var corrFilePath;
 fs.readdir('./cap', function(err, files) {
-	if(err) throw err;
+	if (err) throw err;
 	console.log(files.length);
-	if(files.length <= 9) {
+	if (files.length <= 9) {
 		corrFilePath = './cap/' + file + '-0' + files.length + '.csv';
 		// console.log('file path: ' + corrFilePath);
 		watchChange(corrFilePath);
@@ -65,17 +65,21 @@ fs.readdir('./cap', function(err, files) {
 });
 
 // watch file change
+
 function watchChange(a) {
-fs.watchFile(a, function(curr, prev) {
-	// read .csv then parse it to user in UTF-8
-	fs.readFile(corrFilePath, 'utf-8', function(err, data) {
-		if(err) throw err;
-		var routers = data.substring(data.indexOf('Key')+4, data.indexOf('Station MAC')-6);
-		console.log('routers: '.help + routers);
-		console.log('length: '.help + routers.match(/\n/g).length);
-		io.sockets.emit('data', data);
+	fs.watchFile(a, function(curr, prev) {
+		// read .csv then parse it to user in UTF-8
+		fs.readFile(corrFilePath, 'utf-8', function(err, data) {
+			if (err) throw err;
+			var routers = data.substring(data.indexOf('Key') + 4, data.indexOf('Station MAC') - 6),
+				routerLength = routers.match(/\n/g).length,
+				routerArray = [];
+			console.log('routers: '.help + routers);
+			console.log('line length: '.help + routers.match(/\n/g).length);
+			console.log('index of each break line: '.help + routers.indexOf(routers.match(/\n/g)));
+			io.sockets.emit('data', data);
+		});
 	});
-});
 }
 
 airodump();
