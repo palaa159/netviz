@@ -75,13 +75,12 @@ function watchChange(a) {
 			if (err) throw err;
 			var quote = '"';
 			var routers = data.substring(data.indexOf('Key') + 4, data.indexOf('Station MAC') - 6),
-				routerDeleteTab = routers.replace(/ /g,'').replace('\n', ''),
-				routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n'),
-				routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
-				routerLength = routers.match(/\n/g).length,
-				output = quote.concat(routerAddQuotes).concat(quote),
+				// routerDeleteTab = routers.replace(/ /g,'').replace('\n', ''),
+				// routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n'),
+				// routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
+				output = quote.concat(routers).concat(quote).replace(/ /g,''),
 				routerArray = [];
-			console.log('routerArray: '.help + output);
+			console.log('routerArray: \n'.help + output);
 			io.sockets.emit('data', data);
 		});
 	});
