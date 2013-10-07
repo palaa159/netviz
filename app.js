@@ -73,13 +73,15 @@ function watchChange(a) {
 		// read .csv then parse it to user in UTF-8
 		fs.readFile(corrFilePath, 'utf-8', function(err, data) {
 			if (err) throw err;
+			var quote = '"';
 			var routers = data.substring(data.indexOf('Key') + 4, data.indexOf('Station MAC') - 6),
 				routerDeleteTab = routers.replace(/ /g,''),
-				routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n"'),
+				routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n\r/g,'\n\r"'),
 				routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
 				routerLength = routers.match(/\n/g).length,
+				output = quote.concat(routerAddQuotes).concat(quote),
 				routerArray = [];
-			console.log('routerArray: '.help + routerAddQuotes);
+			console.log('routerArray: '.help + output);
 			io.sockets.emit('data', data);
 		});
 	});
