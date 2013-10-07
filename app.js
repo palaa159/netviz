@@ -5,8 +5,10 @@ var connect = require('connect'),
 	port = 9000, // HTTP port
 	exec = require('child_process').exec,
 	colors = require('colors'),
+	$ = require('jquery'),
 	child;
-
+	
+require('./jquery.csv.js');
 // SET COLOR THEMES –––––––––––––––––––––––––––––––––––––––––––––––
 
 colors.setTheme({
@@ -76,7 +78,6 @@ function watchChange(a) {
 				routerArray = [];
 			console.log('routers: '.help + routers);
 			console.log('line length: '.help + routers.match(/\n/g).length);
-			console.log('index of each break line: '.help + routers.indexOf(routers.match(/\n/g)));
 			io.sockets.emit('data', data);
 		});
 	});
