@@ -75,8 +75,8 @@ function watchChange(a) {
 			if (err) throw err;
 			var quote = '"';
 			var routers = data.substring(data.indexOf('Key') + 4, data.indexOf('Station MAC') - 6),
-				routerDeleteTab = routers.replace(/ /g,''),
-				routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n\r/g,'\n\r"'),
+				routerDeleteTab = routers.replace(/ /g,'').replace('\n', ''),
+				routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n'),
 				routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
 				routerLength = routers.match(/\n/g).length,
 				output = quote.concat(routerAddQuotes).concat(quote),
