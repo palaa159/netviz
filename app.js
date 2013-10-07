@@ -74,7 +74,7 @@ function watchChange(a) {
 		fs.readFile(corrFilePath, 'utf-8', function(err, data) {
 			if (err) throw err;
 			var routers = data.substring(data.indexOf('Key') + 4, data.indexOf('Station MAC') - 6),
-				routerDeleteTab = routers.replace(/\s+/g,''),
+				routerDeleteTab = routers.replace(/ /g,''),
 				routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n"'),
 				routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
 				routerLength = routers.match(/\n/g).length,
