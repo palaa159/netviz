@@ -5,9 +5,9 @@ var connect = require('connect'),
 	port = 9000, // HTTP port
 	exec = require('child_process').exec,
 	colors = require('colors'),
-	$ = require('jquery'),
+	$ = jQuery = require('jquery'),
 	child;
-	
+
 require('./jquery.csv.js');
 // SET COLOR THEMES –––––––––––––––––––––––––––––––––––––––––––––––
 
