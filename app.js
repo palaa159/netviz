@@ -6,9 +6,6 @@ var connect = require('connect'),
 	exec = require('child_process').exec,
 	colors = require('colors'),
 	child;
-
-var jQuery = require('jquery');
-require('./jquery.csv.js');
 // SET COLOR THEMES –––––––––––––––––––––––––––––––––––––––––––––––
 
 colors.setTheme({
@@ -78,10 +75,9 @@ function watchChange(a) {
 				// routerDeleteTab = routers.replace(/ /g,'').replace('\n', ''),
 				// routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n'),
 				// routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
-				output = quote.concat(routers).concat(quote).replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'"\r"\n"').replace(/,/g,'","'),
-				routerArray = jQuery.csv.toArrays(output);
+				output = routers.replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'\r\n');
 			console.log('routerArray: \n'.help + output);
-			io.sockets.emit('data', routerArray);
+			io.sockets.emit('data', output);
 		});
 	});
 }
