@@ -78,7 +78,7 @@ function watchChange(a) {
 				// routerDeleteTab = routers.replace(/ /g,'').replace('\n', ''),
 				// routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n'),
 				// routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
-				output = quote.concat(routers).concat(quote).replace(/ /g,''),
+				output = quote.concat(routers).concat(quote).replace('\n','').replace(/ /g,'').replace(/,\r/g,'\r,'),
 				routerArray = [];
 			console.log('routerArray: \n'.help + output);
 			io.sockets.emit('data', data);
