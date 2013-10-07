@@ -79,9 +79,9 @@ function watchChange(a) {
 				// routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n'),
 				// routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
 				output = quote.concat(routers).concat(quote).replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'"\r"\n"').replace(/,/g,'","'),
-				routerArray = [];
+				routerArray = $.csv.toArrays(output);
 			console.log('routerArray: \n'.help + output);
-			io.sockets.emit('data', data);
+			io.sockets.emit('data', routerArray);
 		});
 	});
 }

@@ -12,7 +12,7 @@
 		var socket = io.connect('http://coder.local:9001'); // connect client to the server
 
 		socket.on('data', function(data) {
-			$('#output').html(data);
+			console.log(data);
 		});
 	</script>
 	</body>
