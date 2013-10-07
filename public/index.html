@@ -13,7 +13,10 @@
 		var socket = io.connect('http://coder.local:9001'); // connect client to the server
 
 		socket.on('data', function(data) {
-			console.log(data);
+			var routerArray = data.csvToArray({
+				head: true,
+			});
+			console.log(routerArray);
 		});
 	</script>
 	</body>
