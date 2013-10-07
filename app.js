@@ -74,10 +74,12 @@ function watchChange(a) {
 		fs.readFile(corrFilePath, 'utf-8', function(err, data) {
 			if (err) throw err;
 			var routers = data.substring(data.indexOf('Key') + 4, data.indexOf('Station MAC') - 6),
+				routerDeleteTab = routers.replace(/\t/g,''),
+				routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n"'),
+				routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
 				routerLength = routers.match(/\n/g).length,
 				routerArray = [];
-			console.log('routers: '.help + routers);
-			console.log('line length: '.help + routers.match(/\n/g).length);
+			console.log('routerArray: '.help + routerAddQuotes);
 			io.sockets.emit('data', data);
 		});
 	});
