@@ -5,9 +5,9 @@ var connect = require('connect'),
 	port = 9000, // HTTP port
 	exec = require('child_process').exec,
 	colors = require('colors'),
-	$ = jQuery = require('jquery'),
 	child;
 
+var jQuery = require('jquery');
 require('./jquery.csv.js');
 // SET COLOR THEMES –––––––––––––––––––––––––––––––––––––––––––––––
 
@@ -79,7 +79,7 @@ function watchChange(a) {
 				// routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n'),
 				// routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
 				output = quote.concat(routers).concat(quote).replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'"\r"\n"').replace(/,/g,'","'),
-				routerArray = $.csv.toArrays(output);
+				routerArray = jQuery.csv.toArrays(output);
 			console.log('routerArray: \n'.help + output);
 			io.sockets.emit('data', routerArray);
 		});
