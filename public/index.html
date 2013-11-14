@@ -1,23 +1,50 @@
 <html>
-	<head>
+<head>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/main.css"></head>
+</head>
+<body>
+	<div id="container">
+		<div id="title">
+			( SmartSense )
+			<div id="tagline">Let your friends know when you're here</div>
+		</div>
 
-	</head>
-	<body>
-		This is running in the Node server.
-		<div id="output">here is the outcome</div>
+		<div id="register">
+				<div class="form-group">
+					<label for="inputName">Your desired name</label>
+					<input type="inputName" id="username" class="form-control" placeholder="Your name"></div>
+				<div class="form-group">
+					<label for="inputEmail">Your Email</label>
+					<input type="inputEmail" id="email" class="form-control" placeholder="Type your email"></div>
+				<div class="checkbox">
+					<label>
+						<input id="chkInvisible" type="checkbox">Invisible me</label>
+				</div>
+				<button id="btnRegister" type="submit" class="btn btn-default">Register</button>
+			<div id="unsee">Too disturbing? you can be unseen, <a href="#">here</a></div>
+		</div>
+	</div>
 
 	<script src="js/vendor/jquery.min.js"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/vendor/moment.js"></script>
 	<script src="js/vendor/csvToArray.js"></script>
 	<script src="http://coder.local:9001/socket.io/socket.io.js"></script>
 	<script>
+		console.log('script is running');
 		var socket = io.connect('http://coder.local:9001'); // connect client to the server
+		var user = {};
 
-		socket.on('data', function(data) {
-			var routerArray = data.csvToArray({
-				head: true,
-			});
-			console.log(routerArray);
+		$('#btnRegister').on('click', function() {
+			console.log('register!');
+			user.username = $('#username').val(),
+			user.email = $('#email').val();
+			socket.emit('register', user);
+
+			$('#register').html('Expect more steps?, Sorry!');
 		});
+
 	</script>
-	</body>
+</body>
 </html>
