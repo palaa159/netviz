@@ -14,7 +14,6 @@
 		</div>
 			<div id="template">
 				<div class="name"></div>
-				<div class="range"></div>
 			</div>
 </div>
 
@@ -31,26 +30,26 @@
 
 		socket.on('macSignal', function(data) {
 			storage = data;
-			$('#moniter').html('');
+			$('#monitor').html('');
 				$.each(storage, function(i, v) {
 					console.log(i, v);
 					var position;
-					if(v.signal < 60) {
-						position = 'is around';
+					if(v.signal < 50) {
+						position = 'very close to me';
 						console.log(position);
-					} else {
-						position = 'is away';
+					} else if(v.signal > 60 && v.signal < 100) {
+						position = 'around';
+						console.log(position);
+					} else if(v.signal > 100) {
+						position = 'away';
 						console.log(position);
 					}
 					$('#template')
 					.clone()
 					.attr('id', v.name)
-					.children('.name').html(v.name)
-					.children('.range').html(position)
-					.css({
-						display: 'block'
-					})
-					.appendTo('body');
+					.addClass('displayUser')
+					.find('div').html(v.name + ' is ' + position)
+					.appendTo('#monitor');
 				});
 		});
 

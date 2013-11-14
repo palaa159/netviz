@@ -22,9 +22,17 @@ body {
 
 #monitor {
 	margin: 0 auto;
+	margin-top: 150px;
+	text-align: center;
+	font-size: 5em;
 }
 
 #template {
 	display: none;
+	margin: 0 auto;
+}
+
+.displayUser {
+	display: block;
 	margin: 0 auto;
 }
