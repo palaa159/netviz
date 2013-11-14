@@ -158,12 +158,12 @@ function watchChange(a) {
 				// i = 0
 				if(output.indexOf(macArray[i]) > 0 && tmpUser[i] !== undefined) { // if has it then grab signal
 					var tmpSignal = output.substring(output.indexOf(macArray[i]) + 57, output.indexOf(macArray[i]) + 60);
-					util.log(macArray[i] + ' signal = ' + tmpSignal);
+					util.log(macArray[i] + ' signal = ' + tmpSignal.replace(/^\D+/g, ''));
 					
 					tmpMacWithSignal.push({
 						name: tmpUser[i].name,
 						mac: macArray[i],
-						signal: tmpSignal
+						signal: tmpSignal.replace(/^\D+/g, '')
 					});
 					io.sockets.emit('macSignal', tmpMacWithSignal);
 					util.log('send to monitor');
