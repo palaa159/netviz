@@ -35,10 +35,12 @@
 				$.each(storage, function(i, v) {
 					console.log(i, v);
 					var position;
-					if(v.signal < 50) {
+					if(v.signal < 60) {
 						position = 'is around';
+						console.log(position);
 					} else {
 						position = 'is away';
+						console.log(position);
 					}
 					$('#template')
 					.clone()
@@ -48,7 +50,7 @@
 					.css({
 						display: 'block'
 					})
-					.appendTo('#monitor');
+					.appendTo('body');
 				});
 		});
 
