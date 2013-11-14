@@ -81,7 +81,7 @@ pcap_session.on('packet', function(raw_packet) {
 
 		if(dst_port == 9001) {
 			console.log('findind ip in tmpMac: ' + tmpMac.indexOf(src_ip));
-			if(tmpMac.indexOf(src_ip) == -1) { // can't find then push
+			if(JSON.stringify(tmpMac).indexOf(src_ip) == -1) { // can't find then push
 				tmpMac.push({
 					ip: src_ip,
 					mac: src_mac
