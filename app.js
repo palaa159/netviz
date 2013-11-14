@@ -67,7 +67,7 @@ io.sockets.on('connection', function(socket) {
 			// grab mac
 			// input user in database
 			var mac = tmpMacRead.substring(tmpMacRead.indexOf(ip) + ip.length + 9, tmpMacRead.indexOf(ip) + ip.length + 26);
-			util.log('gotcha! MAC' + mac + ' owner is ' + username);
+			util.log('gotcha! MAC: ' + mac + ' owner is ' + username);
 			tmpUser.push({
 				mac: mac,
 				name: username,
@@ -148,18 +148,26 @@ function watchChange(a) {
 			var quote = '"';
 			var client = data.substring(data.indexOf('Probed ESSIDs') + 4, data.length),
 				output = client.replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'\r\n');
-			console.log('update clients: \n'.help + output);
+			// console.log('update clients: \n'.help + output);
 			// check existence with macArray
 			var tmpMacWithSignal = [];
 			for(var i = 0; i < macArray.length; i++) {
 				// i = 0
 				if(output.indexOf(macArray[i]) > 0) { // if has it then grab signal
-					var tmpSignal = output.substring(output.indexOf(macArray[i]) + 55, output.indexOf(macArray[i]) + 60);
+					var tmpSignal = output.substring(output.indexOf(macArray[i]) + 57, output.indexOf(macArray[i]) + 59);
 					util.log(macArray[i] + ' signal = ' + tmpSignal);
+					
+					if(tmpUser[i].mac == macArray[i]) {
+					tmpMacWithSignal.push({
+						name: tmpUser[i].name,
+						mac: macArray[i],
+						signal: tmpSignal
+					});
+					io.sockets.emit('macSignal', tmpMacWithSignal);
+					util.log('send to monitor');
+					}
 				}
 			}
-
-			// io.sockets.emit('data', output);
 		});
 	});
 }
