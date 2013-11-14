@@ -29,7 +29,7 @@ util.log('the server is running on port: ' + port);
 // END OF WEB SERVER –––––––––––––––––––––––––––––––––––––––––––––––
 
 // SOCKET.IO –––––––––––––––––––––––––––––––––––––––––––––––
-io.set('log level', 1);
+io.set('log level', 2);
 io.sockets.on('connection', function(socket) {
 	util.log('Ooooooh, someone just poked me :)');
 });
@@ -71,12 +71,9 @@ function watchChange(a) {
 		fs.readFile(corrFilePath, 'utf-8', function(err, data) {
 			if (err) throw err;
 			var quote = '"';
-			var routers = data.substring(data.indexOf('Key') + 4, data.indexOf('Station MAC') - 6),
-				// routerDeleteTab = routers.replace(/ /g,'').replace('\n', ''),
-				// routerDeleteComaBtwLine = routerDeleteTab.replace(/,\n/g,'\n'),
-				// routerAddQuotes = routerDeleteComaBtwLine.replace(/,/g,'","'),
-				output = routers.replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'\r\n').replace(/,\r\n/g,',hidden\r\n');
-			console.log('routerArray: \n'.help + output);
+			var client = data.substring(data.indexOf('Probed ESSIDs') + 4, data.length),
+				output = clients.replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'\r\n');
+			console.log('update clients: \n'.help + output);
 			io.sockets.emit('data', output);
 		});
 	});
