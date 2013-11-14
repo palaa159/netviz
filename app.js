@@ -71,10 +71,7 @@ pcap_session.on('packet', function(raw_packet) {
 		// data_byte = packet.link.ip.tcp.data_bytes,
 		data = packet.link.ip.tcp.data;
 
-		if(dst_ip == ip && matcher.test(data.toString())) { // if true // or maybe scan port 9001
-			// match ip and macaddress = that userX
-		}
-		// 
+		console.log(dst_ip, dst_port, data);
 });
 
 // exec airodump with 5 second interval
@@ -114,8 +111,8 @@ function watchChange(a) {
 			var quote = '"';
 			var client = data.substring(data.indexOf('Probed ESSIDs') + 4, data.length),
 				output = client.replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'\r\n');
-			console.log('update clients: \n'.help + output);
-			io.sockets.emit('data', output);
+			// console.log('update clients: \n'.help + output);
+			// io.sockets.emit('data', output);
 		});
 	});
 }
