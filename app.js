@@ -135,7 +135,6 @@ fs.readdir('./cap', function(err, files) {
 		corrFilePath = './cap/' + file + '-' + files.length + '.csv';
 		// console.log('file path: ' + corrFilePath);
 		if(tmpUser.length > 0) { // start watching when has user register
-		util.log(tmpUser.toString());
 		watchChange(corrFilePath);
 		}
 	}
@@ -156,7 +155,7 @@ function watchChange(a) {
 			var tmpMacWithSignal = [];
 			for(var i = 0; i < macArray.length; i++) {
 				// i = 0
-				if(output.indexOf(macArray[i]) > 0) { // if has it then grab signal
+				if(output.indexOf(macArray[i]) > 0 && tmpUser[i] !== undefined) { // if has it then grab signal
 					var tmpSignal = output.substring(output.indexOf(macArray[i]) + 57, output.indexOf(macArray[i]) + 59);
 					util.log(macArray[i] + ' signal = ' + tmpSignal);
 					
