@@ -11,7 +11,8 @@
 		</div>
 
 		<div id="monitor">
-			Monitoring . . .
+			<h3>Monitoring . . .</h3>
+			<div id="template">
 		</div>
 	</div>
 
@@ -23,8 +24,8 @@
 	<script>
 		console.log('script is running');
 		var socket = io.connect('http://coder.local:9001'); // connect client to the server
-		var name = [];
-		var mac = [];
+		var storage;
+		var msgPool;
 		socket.on('user', function(data) {
 			var tmpName = [];
 			var tmpMac = [];
@@ -37,10 +38,13 @@
 			console.log(name.toString(), mac.toString());
 		});
 
-		socket.on('signal change', function(data) {
-
+		socket.on('macSignal', function(data) {
+			storage = data;
 		});
 
+		function showMsg() { // supposed to show in Arduino
+			
+		}
 	</script>
 </body>
 </html>

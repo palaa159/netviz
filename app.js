@@ -115,7 +115,7 @@ pcap_session.on('packet', function(raw_packet) {
 var file = 'test';
 
 function airodump() {
-	child = exec('sudo airodump-ng mon0 -u 5 -w ./cap/' + file + ' -o csv', {
+	child = exec('sudo airodump-ng mon0 -u 3 -w ./cap/' + file + ' -o csv', {
 		maxBuffer: 20000 * 1024
 	}, function() {
 
@@ -159,6 +159,7 @@ function watchChange(a) {
 					util.log(macArray[i] + ' signal = ' + tmpSignal);
 					
 					tmpMacWithSignal.push({
+						name: tmpUser[i].name,
 						mac: macArray[i],
 						signal: tmpSignal
 					});
