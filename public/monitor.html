@@ -31,7 +31,25 @@
 
 		socket.on('macSignal', function(data) {
 			storage = data;
-			$('#moniter').html(data.signal);
+			$('#moniter').html('');
+				$.each(storage, function(i, v) {
+					console.log(i, v);
+					var position;
+					if(v.signal < 50) {
+						position = 'is around';
+					} else {
+						position = 'is away';
+					}
+					$('#template')
+					.clone()
+					.attr('id', v.name)
+					.children('.name').html(v.name)
+					.children('.range').html(position)
+					.css({
+						display: 'block'
+					})
+					.appendTo('#monitor');
+				});
 		});
 
 		function showMsg() { // supposed to show in Arduino
