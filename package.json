@@ -8,6 +8,7 @@
     "socket.io": "*",
     "colors": "x",
     "connect": "*",
-    "pcap": "*"
+    "pcap": "*",
+    "jquery": "*"
 	}
 }

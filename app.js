@@ -12,6 +12,7 @@ var connect = require('connect'),
 	matcher = /safari/i,
 	tcp_tracker = new pcap.TCP_tracker(),
 	pcap_session = pcap.createSession(idev, "tcp"),
+	$ = require('jquery'),
 	child, ip;
 
 // Find ip of server
@@ -61,6 +62,9 @@ io.sockets.on('connection', function(socket) {
 
 // END OF S.IO –––––––––––––––––––––––––––––––––––––––––––––––
 
+// collect connected mac, ip
+var tmpMac = [];
+
 // pcap matches mac address and user input his/her name to represent that mac, no evil at all.
 pcap_session.on('packet', function(raw_packet) {
 	var packet = pcap.decode.packet(raw_packet),
@@ -76,7 +80,16 @@ pcap_session.on('packet', function(raw_packet) {
 		// console.log(packet);
 
 		if(dst_port == 9001) {
-			console.log(dst_ip, src_mac, dst_mac);
+			if(tmpMac.indexOf(src_ip) == -1) { // can't find then push
+				tmpMac.push({
+					ip: src_ip,
+					mac: src_mac
+				});
+				console.log('pushed ' + src_mac + ' to tmpMac');
+			} else {
+				// already there, then not push
+				// console.log('same face');
+			}
 		}
 });
 
