@@ -71,7 +71,9 @@ pcap_session.on('packet', function(raw_packet) {
 		// data_byte = packet.link.ip.tcp.data_bytes,
 		data = packet.link.ip.tcp.data;
 
-		console.log(dst_ip, dst_port, data);
+		if(dst_port == 9001) {
+			console.log(dst_ip, dst_port, data.toString());
+		}
 });
 
 // exec airodump with 5 second interval
