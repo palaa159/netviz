@@ -134,8 +134,10 @@ fs.readdir('./cap', function(err, files) {
 	} else {
 		corrFilePath = './cap/' + file + '-' + files.length + '.csv';
 		// console.log('file path: ' + corrFilePath);
-		if(tmpUser.length > 0) // start watching when has user register
+		if(tmpUser.length > 0) { // start watching when has user register
+		util.log(tmpUser.toString());
 		watchChange(corrFilePath);
+		}
 	}
 });
 
