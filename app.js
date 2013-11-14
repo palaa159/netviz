@@ -73,7 +73,7 @@ io.sockets.on('connection', function(socket) {
 				name: username,
 				email: email
 			});
-			io.sockets.emit('users', tmpUser);
+			// io.sockets.emit('users', tmpUser);
 		}
 	});
 });
@@ -157,7 +157,7 @@ function watchChange(a) {
 					var tmpSignal = output.substring(output.indexOf(macArray[i]) + 57, output.indexOf(macArray[i]) + 59);
 					util.log(macArray[i] + ' signal = ' + tmpSignal);
 					
-					if(tmpUser[i].mac == macArray[i]) {
+					if(tmpUser[i] !== null && tmpUser[i].mac == macArray[i]) {
 					tmpMacWithSignal.push({
 						name: tmpUser[i].name,
 						mac: macArray[i],
