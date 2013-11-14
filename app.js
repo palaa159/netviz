@@ -134,6 +134,7 @@ fs.readdir('./cap', function(err, files) {
 	} else {
 		corrFilePath = './cap/' + file + '-' + files.length + '.csv';
 		// console.log('file path: ' + corrFilePath);
+		if(tmpUser.length > 0) // start watching when has user register
 		watchChange(corrFilePath);
 	}
 });
@@ -157,15 +158,12 @@ function watchChange(a) {
 					var tmpSignal = output.substring(output.indexOf(macArray[i]) + 57, output.indexOf(macArray[i]) + 59);
 					util.log(macArray[i] + ' signal = ' + tmpSignal);
 					
-					if(tmpUser[i] !== null && tmpUser[i].mac == macArray[i]) {
 					tmpMacWithSignal.push({
-						name: tmpUser[i].name,
 						mac: macArray[i],
 						signal: tmpSignal
 					});
 					io.sockets.emit('macSignal', tmpMacWithSignal);
 					util.log('send to monitor');
-					}
 				}
 			}
 		});
