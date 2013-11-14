@@ -72,7 +72,7 @@ function watchChange(a) {
 			if (err) throw err;
 			var quote = '"';
 			var client = data.substring(data.indexOf('Probed ESSIDs') + 4, data.length),
-				output = clients.replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'\r\n');
+				output = client.replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'\r\n');
 			console.log('update clients: \n'.help + output);
 			io.sockets.emit('data', output);
 		});
