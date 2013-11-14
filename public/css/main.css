@@ -19,3 +19,12 @@ body {
 	margin: 0 auto;
 	margin-top: 50px;
 }
+
+#monitor {
+	margin: 0 auto;
+}
+
+#template {
+	display: none;
+	margin: 0 auto;
+}

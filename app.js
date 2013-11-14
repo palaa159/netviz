@@ -157,7 +157,7 @@ function watchChange(a) {
 			for(var i = 0; i < macArray.length; i++) {
 				// i = 0
 				if(output.indexOf(macArray[i]) > 0 && tmpUser[i] !== undefined) { // if has it then grab signal
-					var tmpSignal = output.substring(output.indexOf(macArray[i]) + 57, output.indexOf(macArray[i]) + 59);
+					var tmpSignal = output.substring(output.indexOf(macArray[i]) + 57, output.indexOf(macArray[i]) + 60);
 					util.log(macArray[i] + ' signal = ' + tmpSignal);
 					
 					tmpMacWithSignal.push({

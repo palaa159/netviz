@@ -36,7 +36,7 @@
 		var socket = io.connect('http://coder.local:9001'); // connect client to the server
 		var user = {};
 
-		$('#btnRegister').on('click', function() {
+		$('#btnRegister').on('click', function() { // facebook login?
 			console.log('register!');
 			user.username = $('#username').val(),
 			user.email = $('#email').val();
