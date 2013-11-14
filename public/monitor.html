@@ -31,11 +31,8 @@
 
 		socket.on('macSignal', function(data) {
 			storage = data;
-		});
-
-		function showMsg() { // supposed to show in Arduino
-			$('#monitor').html('');
-			$.each(storage, function(i, v) {
+			$('#moniter').html('');
+				$.each(storage, function(i, v) {
 				var position;
 				if(v.signal < 50) {
 					position = 'is around';
@@ -52,6 +49,11 @@
 				})
 				.appendTo('#monitor');
 			});
+		});
+
+		function showMsg() { // supposed to show in Arduino
+			$('#monitor').html('');
+			console.log('starting showMsg');
 		}
 	</script>
 </body>
