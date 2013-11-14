@@ -12,7 +12,7 @@ var connect = require('connect'),
 	matcher = /safari/i,
 	tcp_tracker = new pcap.TCP_tracker(),
 	pcap_session = pcap.createSession(idev, "tcp"),
-	$ = require('jquery'),
+	// $ = require('jquery'),
 	child, ip;
 
 // Find ip of server
