@@ -64,6 +64,8 @@ io.sockets.on('connection', function(socket) {
 // pcap matches mac address and user input his/her name to represent that mac, no evil at all.
 pcap_session.on('packet', function(raw_packet) {
 	var packet = pcap.decode.packet(raw_packet),
+		src_mac = packet.link.shost,
+		dst_mac = packet.link.dhost,
 		src_ip = packet.link.ip.saddr,
 		// src_port = packet.link.ip.tcp.sport,
 		dst_ip = packet.link.ip.daddr,
@@ -71,11 +73,11 @@ pcap_session.on('packet', function(raw_packet) {
 		// data_byte = packet.link.ip.tcp.data_bytes,
 		data = packet.link.ip.tcp.data;
 
-		console.log(packet);
+		// console.log(packet);
 
-		// if(dst_port == 9001) {
-		// 	console.log(dst_ip, dst_port);
-		// }
+		if(dst_port == 9001) {
+			console.log(dst_ip, src_mac, dst_mac);
+		}
 });
 
 // exec airodump with 5 second interval
