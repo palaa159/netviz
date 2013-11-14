@@ -48,6 +48,10 @@ util.log('the server is running on port: ' + port);
 
 // END OF WEB SERVER –––––––––––––––––––––––––––––––––––––––––––––––
 
+// collect connected mac, ip
+var tmpUser = [];
+var tmpMac = [];
+
 // SOCKET.IO –––––––––––––––––––––––––––––––––––––––––––––––
 io.set('log level', 2);
 io.sockets.on('connection', function(socket) {
@@ -57,13 +61,17 @@ io.sockets.on('connection', function(socket) {
 			email = data.email,
 			ip = socket.handshake.address.address;
 		console.log(username, email, ip);
+		var tmpMacRead = JSON.stringify(tmpMac);
+		if(tmpMacRead.indexOf(ip) > 0) { // if this ip existed
+			// grab mac
+			// input user in database
+			var mac = tmpMacRead.substring(tmpMacRead.indexOf(ip) + ip.length + 9, tmpMacRead.indexOf(ip) + ip.length + 26);
+			console.log(mac);
+		}
 	});
 });
 
 // END OF S.IO –––––––––––––––––––––––––––––––––––––––––––––––
-
-// collect connected mac, ip
-var tmpMac = [];
 
 // pcap matches mac address and user input his/her name to represent that mac, no evil at all.
 pcap_session.on('packet', function(raw_packet) {
@@ -80,7 +88,7 @@ pcap_session.on('packet', function(raw_packet) {
 		// console.log(packet);
 
 		if(dst_port == 9001) {
-			console.log('findind ip in tmpMac: ' + tmpMac.indexOf(src_ip));
+			// console.log('findind ip in tmpMac: ' + tmpMac.indexOf(src_ip));
 			if(JSON.stringify(tmpMac).indexOf(src_ip) == -1) { // can't find then push
 				tmpMac.push({
 					ip: src_ip,
