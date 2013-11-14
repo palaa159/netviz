@@ -49,6 +49,7 @@ util.log('the server is running on port: ' + port);
 // END OF WEB SERVER –––––––––––––––––––––––––––––––––––––––––––––––
 
 // collect connected mac, ip
+var macArray = [];
 var tmpUser = [];
 var tmpMac = [];
 
@@ -66,7 +67,13 @@ io.sockets.on('connection', function(socket) {
 			// grab mac
 			// input user in database
 			var mac = tmpMacRead.substring(tmpMacRead.indexOf(ip) + ip.length + 9, tmpMacRead.indexOf(ip) + ip.length + 26);
-			console.log(mac);
+			util.log('gotcha! MAC' + mac + ' owner is ' + username);
+			tmpUser.push({
+				mac: mac,
+				name: username,
+				email: email
+			});
+			io.sockets.emit('users', tmpUser);
 		}
 	});
 });
@@ -90,15 +97,16 @@ pcap_session.on('packet', function(raw_packet) {
 		if(dst_port == 9001) {
 			// console.log('findind ip in tmpMac: ' + tmpMac.indexOf(src_ip));
 			if(JSON.stringify(tmpMac).indexOf(src_ip) == -1) { // can't find then push
+				macArray.push(src_mac.toUpperCase());
 				tmpMac.push({
 					ip: src_ip,
-					mac: src_mac
+					mac: src_mac.toUpperCase()
 				});
-				console.log('pushed ' + src_mac + ' to tmpMac');
-				console.log(JSON.stringify(tmpMac));
+				// console.log('pushed ' + src_mac + ' to tmpMac');
+				// console.log(JSON.stringify(tmpMac));
 			} else {
 				// already there, then not push
-				console.log('same face');
+				// console.log('same face');
 			}
 		}
 });
@@ -140,7 +148,17 @@ function watchChange(a) {
 			var quote = '"';
 			var client = data.substring(data.indexOf('Probed ESSIDs') + 4, data.length),
 				output = client.replace('\n','').replace(/ /g,'').replace(/,\r\n/g,'\r\n');
-			// console.log('update clients: \n'.help + output);
+			console.log('update clients: \n'.help + output);
+			// check existence with macArray
+			var tmpMacWithSignal = [];
+			for(var i = 0; i < macArray.length; i++) {
+				// i = 0
+				if(output.indexOf(macArray[i]) > 0) { // if has it then grab signal
+					var tmpSignal = output.substring(output.indexOf(macArray[i]) + 55, output.indexOf(macArray[i]) + 60);
+					util.log(macArray[i] + ' signal = ' + tmpSignal);
+				}
+			}
+
 			// io.sockets.emit('data', output);
 		});
 	});

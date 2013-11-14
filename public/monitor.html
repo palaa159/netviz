@@ -1,0 +1,46 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/main.css"></head>
+</head>
+<body>
+	<div id="container">
+		<div id="title">
+			( SmartSense )
+			<div id="tagline">Let your friends know when you're here</div>
+		</div>
+
+		<div id="monitor">
+			Monitoring . . .
+		</div>
+	</div>
+
+	<script src="js/vendor/jquery.min.js"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/vendor/moment.js"></script>
+	<script src="js/vendor/csvToArray.js"></script>
+	<script src="http://coder.local:9001/socket.io/socket.io.js"></script>
+	<script>
+		console.log('script is running');
+		var socket = io.connect('http://coder.local:9001'); // connect client to the server
+		var name = [];
+		var mac = [];
+		socket.on('user', function(data) {
+			var tmpName = [];
+			var tmpMac = [];
+			$.each(data, function(k, v) {
+				tmpName.push(v.name);
+				tmpMac.push(v.mac);
+			});
+			name = tmpName;
+			mac = tmpMac;
+			console.log(name.toString(), mac.toString());
+		});
+
+		socket.on('signal change', function(data) {
+
+		});
+
+	</script>
+</body>
+</html>
